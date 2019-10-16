@@ -1,0 +1,38 @@
+<div class="page-header">
+  <%= link_to games_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_game_path(@game), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show game</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Day:</dt>
+  <dd><%= @game.day %></dd>
+
+  <dt>Hour:</dt>
+  <dd><%= @game.hour %></dd>
+
+  <dt>Team1:</dt>
+  <dd><%= @game.team1_id %></dd>
+
+  <dt>Team2:</dt>
+  <dd><%= @game.team2_id %></dd>
+
+  <dt>Team2 score:</dt>
+  <dd><%= @game.team2_score %></dd>
+
+  <dt>Team1 score:</dt>
+  <dd><%= @game.team1_score %></dd>
+
+  <dt>Winner:</dt>
+  <dd><%= @game.winner_id %></dd>
+
+  <dt>Tournament:</dt>
+  <dd><%= @game.tournament_id %></dd>
+
+</dl>

@@ -1,0 +1,50 @@
+<%= form_for(@tournament, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @tournament.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h4>
+
+      <ul>
+      <% @tournament.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :started, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.check_box :started, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_day, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.date_select :start_day, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_date, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.date_select :end_date, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :winning_team_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :winning_team_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

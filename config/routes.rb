@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root 'home#index'
+  resources :tournaments
+  resources :games
+  resources :teams
+  resources :players
+  devise_for :users, :controllers => { registrations: 'registration' }
+  root 'tournaments#index'
 end
