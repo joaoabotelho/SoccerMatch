@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:join_team, :show, :edit, :update, :destroy]
 
   # GET /teams
   # GET /teams.json
@@ -29,6 +29,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
+        @team.join_team(current_user,true)
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else
@@ -36,6 +37,16 @@ class TeamsController < ApplicationController
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /teams/1/join_team
+  def join_team
+    @team.join_team(current_user, false)
+
+    respond_to do |format|
+      format.html { redirect_to @team, notice: 'Joined team successfully' }
+    end
+
   end
 
   # PATCH/PUT /teams/1
