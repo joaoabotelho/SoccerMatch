@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '>= 3.4.1'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise-bootstrap-views'
