@@ -1,10 +1,14 @@
 <%= render 'shared/navbar' %>
 <div class="page-header">
-  <% if current_user %>
+  <%if !current_user&.player&.team  %>
     <%= link_to new_team_path, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-plus"></span>
       New Team
     <% end %>
+  <% end %>
+  <%= form_tag(teams_path, method: :get, :class => 'form-inline') do %>
+    Name <%= text_field_tag :name, params[:name]%>
+    <%= submit_tag 'Search', name: nil %>
   <% end %>
   <h1>Listing teams</h1>
 </div>
@@ -14,23 +18,25 @@
     <thead>
     <tr>
       <th>Name</th>
-      <th>Current points</th>
-      <th>Current goals</th>
+      <th>Number of Games</th>
+      <th>Number of Players</th>
+      <th>Winning Percentage(%)</th>
       <th></th>
-      <th></th>
+      <% if current_user&.admin %>
+        <th></th>
+      <% end %>
     </tr>
     </thead>
 
     <tbody>
     <%= content_tag_for(:tr, @teams) do |team| %>
       <td><%= team.name %></td>
-      <td><%= team.current_points %></td>
-      <td><%= team.current_goals %></td>
+      <td><%= team.games.size %></td>
+      <td><%= team.players.size %></td>
+      <td><%= team.winning_games.size/(team.games.size.nonzero? || 1) * 100 %></td>
       <td><%= link_to 'Show', team %></td>
       <% if current_user&.admin %>
         <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% else %>
-        <td></td>
       <% end %>
     <% end %>
     </tbody>

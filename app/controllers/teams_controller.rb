@@ -1,10 +1,14 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:join_team, :show, :edit, :update, :destroy]
+  before_action :set_team, only: [:leave_team, :join_team, :show, :edit, :update, :destroy]
 
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    if params[:name]
+      @teams = Team.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @teams = Team.all
+    end
   end
 
   # GET /teams/1
@@ -42,11 +46,16 @@ class TeamsController < ApplicationController
   # POST /teams/1/join_team
   def join_team
     @team.join_team(current_user, false)
-
     respond_to do |format|
       format.html { redirect_to @team, notice: 'Joined team successfully' }
     end
+  end
 
+  def leave_team
+    @team.players.delete(current_user.player)
+    respond_to do |format|
+      format.html { redirect_to @team, notice: 'Leaved team successfully' }
+    end
   end
 
   # PATCH/PUT /teams/1
@@ -81,6 +90,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :current_points, :current_goals)
+      params.permit(:name, :current_points, :current_goals)
     end
 end

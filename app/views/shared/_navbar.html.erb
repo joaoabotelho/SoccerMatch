@@ -6,7 +6,10 @@
       <li class="nav-item"><%= link_to 'Teams', teams_path %></li>
       <% if user_signed_in? %>
         <li class="nav-item"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
-        <% if current_user && current_user.admin %>
+        <%if current_user&.player&.team  %>
+          <li class="nav-item"><%= link_to 'My Team', current_user.player.team %></li>
+        <% end %>
+        <% if current_user&.admin %>
           <li class="nav-item"><%= link_to 'Administration' %></li>
         <% end %>
       <% else %>
